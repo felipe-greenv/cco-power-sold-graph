@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+
+  <title>CCO | Instalações Realizadas CF & Porsche</title>
+
+  <!-- Viewport para TV / iframe -->
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <section class="dashboard-widget">
+
+    <!-- Cabeçalho -->
+    <header class="widget-header">
+      <h1 class="widget-title" id="chartTitle">
+        Installações Realizadas
+      </h1>
+
+      <!-- Totais -->
+      <div class="widget-totals" id="chartTotals">
+        Carregando totais...
+      </div>
+    </header>
+
+    <!-- Gráfico -->
+    <div class="widget-chart">
+      <canvas id="monthlyChart"></canvas>
+    </div>
+
+    <!-- Status -->
+    <footer class="widget-footer">
+    </footer>
+
+  </section>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+
+</body>
+</html>
