@@ -1,160 +1,140 @@
-const API_URL = "https://cco-installations-api.felipe-leandro.workers.dev/installations-metrics";
+// Dados de exemplo em kWh
+const data = [
+  { Data: "2026-01-01", total_kWh: 2300 },
+  { Data: "2026-01-02", total_kWh: 2100 },
+  { Data: "2026-01-03", total_kWh: 2900 },
+  { Data: "2026-01-04", total_kWh: 3200 },
+  { Data: "2026-01-05", total_kWh: 2600 },
+  { Data: "2026-01-06", total_kWh: 1900 },
+  { Data: "2026-01-07", total_kWh: 2150 },
+  { Data: "2026-01-08", total_kWh: 2400 },
+  { Data: "2026-01-09", total_kWh: 3200 },
+  { Data: "2026-01-10", total_kWh: 2900 },
+  { Data: "2026-01-11", total_kWh: 3400 },
+  { Data: "2026-01-12", total_kWh: 3100 },
+  { Data: "2026-01-13", total_kWh: 2950 },
+  { Data: "2026-01-14", total_kWh: 3000 },
+  { Data: "2026-01-15", total_kWh: 3200 },
+  { Data: "2026-01-16", total_kWh: 3850 },
+  { Data: "2026-01-17", total_kWh: 3900 },
+  { Data: "2026-01-18", total_kWh: 4000 }
+];
 
-async function createMonthlyChart() {
-    const hoje = new Date();
-    const mesAtual = hoje.getMonth();
-    const anoAtual = hoje.getFullYear();
+function createMonthlyChart() {
+  const hoje = new Date();
+  const mesAtual = hoje.getMonth();
+  const anoAtual = hoje.getFullYear();
 
-    const meses = [
-        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    ];
+  const meses = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
 
-    document.getElementById("chartTitle").innerText =
-        `Instalações Realizadas em ${meses[mesAtual]}`;
+  document.getElementById("chartTitle").innerText =
+    `Consumo de Energia em kWh - ${meses[mesAtual]}`;
 
-    const res = await fetch(API_URL);
-    const data = await res.json();
+  // Preparar arrays
+  const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+  const dias = Array.from({ length: diasNoMes }, (_, i) => i + 1);
+  const consumo = Array(diasNoMes).fill(0);
 
-    const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
-    const dias = Array.from({ length: diasNoMes }, (_, i) => i + 1);
+  data.forEach(d => {
+    const [y, m, day] = d.Data.split("-").map(Number);
+    if (y === anoAtual && m - 1 === mesAtual) {
+      consumo[day - 1] = d.total_kWh;
+    }
+  });
 
-    const cf = Array(diasNoMes).fill(0);
-    const porsche = Array(diasNoMes).fill(0);
+  // Totais e média
+  const totalGeral = consumo.reduce((a, b) => a + b, 0);
+  const diasComDados = consumo.filter(v => v > 0);
+  const media = diasComDados.length ? totalGeral / diasComDados.length : 0;
 
-    data.forEach(d => {
-        const [y, m, day] = d.Data.split("-").map(Number);
-        if (y === anoAtual && m - 1 === mesAtual) {
-            cf[day - 1] = d.CF || 0;
-            porsche[day - 1] = d.PORSCHE || 0;
-        }
-    });
-
-    const totalCF = cf.reduce((a, b) => a + b, 0);
-    const totalP = porsche.reduce((a, b) => a + b, 0);
-    const totalGeral = totalCF + totalP;
-
-    const diasComDados = cf
-        .map((v, i) => v + porsche[i])
-        .filter(v => v > 0);
-
-    const media = diasComDados.length
-        ? totalGeral / diasComDados.length
-        : 0;
-
-    document.getElementById("chartTotals").innerHTML = `
-    <span>CF: <strong>${totalCF}</strong></span>
-    <span>Porsche: <strong>${totalP}</strong></span>
-    <span>Média: <strong>${media.toFixed(1)}</strong></span>
+  document.getElementById("chartTotals").innerHTML = `
+    <span>Total do mês: <strong>${totalGeral}</strong> kWh</span>
+    <span>Média diária: <strong>${media.toFixed(1)}</strong> kWh</span>
+    <span>Meta: <strong>3500</strong> kWh</span>
   `;
 
-    const mediaLinha = Array(diasNoMes).fill(media);
+  const mediaLinha = Array(diasNoMes).fill(media);
+  const metaLinha = Array(diasNoMes).fill(3500);
 
-    const ctx = document.getElementById("monthlyChart");
-    const container = ctx.parentElement;
+  // Configuração do gráfico
+  const ctx = document.getElementById("monthlyChart");
+  const container = ctx.parentElement;
+  ctx.width = container.clientWidth;
+  ctx.height = container.clientHeight;
 
-    // Ajusta a altura do canvas para ocupar todo o container
-    ctx.width = container.clientWidth;
-    ctx.height = container.clientHeight;
+  if (window.chart) window.chart.destroy();
 
-    // Se já existir um gráfico, destrói
-    if (window.chart) window.chart.destroy();
-
-    window.chart = new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: dias,
-            datasets: [
-                {
-                    label: "CF",
-                    data: cf,
-                    borderColor: "#00ff66",
-                    backgroundColor: function (context) {
-                        const chart = context.chart;
-                        const { ctx, chartArea } = chart;
-                        if (!chartArea) return null; // ainda não calculou
-                        const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                        gradient.addColorStop(0, "rgba(66, 188, 88, 0.8)");  // verde sólido (#42BC58)
-                        gradient.addColorStop(1, "rgba(66, 188, 88, 0.1)");  // transparente verde
-                        return gradient;
-                    },
-                    fill: true,
-                    borderWidth: 1.8,
-                    tension: 0.3,
-                    pointRadius: 0
-                },
-                {
-                    label: "Porsche",
-                    data: porsche,
-                    borderColor: "#00c8ff",
-                    backgroundColor: function (context) {
-                        const chart = context.chart;
-                        const { ctx, chartArea } = chart;
-                        if (!chartArea) return null; // ainda não calculou
-                        // Gradiente vertical para a linha Porsche
-                        const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                        gradient.addColorStop(0, "rgba(66, 188, 88, 0.8)"); // verde sólido
-                        gradient.addColorStop(1, "rgba(85, 0, 215, 0.2)");  // transparente purple (#5500D7)
-                        return gradient;
-                    },
-                    fill: true,
-                    borderWidth: 1.8,
-                    tension: 0.3,
-                    pointRadius: 0
-                },
-                {
-                    label: "Média",
-                    data: mediaLinha,
-                    borderColor: "rgba(255, 204, 0, 0.7)",
-                    borderWidth: 1.2,
-                    borderDash: [6, 6],
-                    tension: 0,
-                    pointRadius: 0
-                }
-            ]
+  window.chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: dias,
+      datasets: [
+        {
+          label: "Consumo diário (kWh)",
+          data: consumo,
+          borderColor: "#00ff66",
+          backgroundColor: function (context) {
+            const chart = context.chart;
+            const { ctx, chartArea } = chart;
+            if (!chartArea) return null;
+            const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+            gradient.addColorStop(0, "rgba(66, 188, 88, 0.8)");
+            gradient.addColorStop(1, "rgba(66, 188, 88, 0.1)");
+            return gradient;
+          },
+          fill: true,
+          borderWidth: 1.8,
+          tension: 0.3,
+          pointRadius: 0
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 12,   // espaço real à esquerda
-                    right: 12   // espaço real à direita
-                }
-            },
-            plugins: {
-                legend: { display: false } // média já está nos totais
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        autoSkip: false,
-                        maxTicksLimit: 10,
-                        color: function (context) {
-                            const day = dias[context.index]; // pega o dia correspondente
-                            const data = new Date(anoAtual, mesAtual, day);
-                            const diaSemana = data.getDay(); // 0 = domingo, 6 = sábado
-
-                            // vermelho para sábado e domingo, branco para os outros
-                            return (diaSemana === 0 || diaSemana === 6) ? '#ff4d4d' : '#888';
-                        },
-                        font: { size: 8 }
-                    },
-                    grid: { display: false },
-                },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: "#888",
-                        font: { size: 10 }
-                    },
-                    grid: {
-                        color: "rgba(255,255,255,0.05)"
-                    }
-                }
-            }
+        {
+          label: "Média diária",
+          data: mediaLinha,
+          borderColor: "rgba(255, 204, 0, 0.7)",
+          borderWidth: 1.5,
+          borderDash: [6, 6],
+          tension: 0,
+          pointRadius: 0
+        },
+        {
+          label: "Meta 3500 kWh",
+          data: metaLinha,
+          borderColor: "rgba(255, 0, 0, 0.8)",
+          borderWidth: 1.5,
+          borderDash: [4, 4],
+          tension: 0,
+          pointRadius: 0
         }
-    });
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true }
+      },
+      scales: {
+        x: {
+          ticks: {
+            autoSkip: false,
+            maxTicksLimit: 10,
+            color: "#fff",
+            font: { size: 10 }
+          },
+          grid: { display: false }
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#fff", font: { size: 10 } },
+          grid: { color: "rgba(255,255,255,0.05)" }
+        }
+      }
+    }
+  });
 }
 
+// Inicializa o gráfico
 createMonthlyChart();
