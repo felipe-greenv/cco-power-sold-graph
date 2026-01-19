@@ -122,7 +122,7 @@ function createMonthlyChart() {
             autoSkip: false,
             maxTicksLimit: 10,
             color: "#fff",
-            font: { size: 10 }
+            font: { size: 18 }
           },
           grid: { display: false }
         },

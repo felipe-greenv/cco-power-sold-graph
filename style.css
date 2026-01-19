@@ -29,8 +29,8 @@ body {
 
 /* Header */
 .widget-header h1 {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 30px;
+  font-weight: 700;
   text-align: center;
   white-space: nowrap;
 }
@@ -39,8 +39,8 @@ body {
 .widget-totals {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
-  color: #ccc;
+  font-size: 22px;
+  color: #ffffff;
 }
 
 /* Área do gráfico */
