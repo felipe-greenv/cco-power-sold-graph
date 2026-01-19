@@ -1,23 +1,23 @@
 // Dados de exemplo em kWh
 const data = [
-  { Data: "2026-01-01", total_kWh: 2300 },
-  { Data: "2026-01-02", total_kWh: 2100 },
-  { Data: "2026-01-03", total_kWh: 2900 },
-  { Data: "2026-01-04", total_kWh: 3200 },
-  { Data: "2026-01-05", total_kWh: 2600 },
-  { Data: "2026-01-06", total_kWh: 1900 },
-  { Data: "2026-01-07", total_kWh: 2150 },
-  { Data: "2026-01-08", total_kWh: 2400 },
-  { Data: "2026-01-09", total_kWh: 3200 },
-  { Data: "2026-01-10", total_kWh: 2900 },
-  { Data: "2026-01-11", total_kWh: 3400 },
-  { Data: "2026-01-12", total_kWh: 3100 },
-  { Data: "2026-01-13", total_kWh: 2950 },
-  { Data: "2026-01-14", total_kWh: 3000 },
-  { Data: "2026-01-15", total_kWh: 3200 },
-  { Data: "2026-01-16", total_kWh: 3850 },
-  { Data: "2026-01-17", total_kWh: 3900 },
-  { Data: "2026-01-18", total_kWh: 4000 }
+  { Data: "2026-01-01", total_kWh: 768 },
+  { Data: "2026-01-02", total_kWh: 1296 },
+  { Data: "2026-01-03", total_kWh: 1854 },
+  { Data: "2026-01-04", total_kWh: 1540 },
+  { Data: "2026-01-05", total_kWh: 1383 },
+  { Data: "2026-01-06", total_kWh: 1010 },
+  { Data: "2026-01-07", total_kWh: 944 },
+  { Data: "2026-01-08", total_kWh: 1246 },
+  { Data: "2026-01-09", total_kWh: 1109 },
+  { Data: "2026-01-10", total_kWh: 1241 },
+  { Data: "2026-01-11", total_kWh: 1125 },
+  { Data: "2026-01-12", total_kWh: 1489 },
+  { Data: "2026-01-13", total_kWh: 1377 },
+  { Data: "2026-01-14", total_kWh: 925 },
+  { Data: "2026-01-15", total_kWh: 1394 },
+  { Data: "2026-01-16", total_kWh: 1732 },
+  { Data: "2026-01-17", total_kWh: 1235 },
+  { Data: "2026-01-18", total_kWh: 1696 }
 ];
 
 function createMonthlyChart() {
