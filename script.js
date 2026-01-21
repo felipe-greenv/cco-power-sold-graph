@@ -17,7 +17,9 @@ const data = [
     { Data: "2026-01-15", total_kWh: 1394 },
     { Data: "2026-01-16", total_kWh: 1732 },
     { Data: "2026-01-17", total_kWh: 1235 },
-    { Data: "2026-01-18", total_kWh: 1696 }
+    { Data: "2026-01-18", total_kWh: 1696 },
+    { Data: "2026-01-19", total_kWh: 1369 },
+    { Data: "2026-01-20", total_kWh: 1121 }
 ];
 
 function createMonthlyChart() {
