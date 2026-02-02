@@ -19,7 +19,18 @@ const data = [
     { Data: "2026-01-17", total_kWh: 1235 },
     { Data: "2026-01-18", total_kWh: 1696 },
     { Data: "2026-01-19", total_kWh: 1369 },
-    { Data: "2026-01-20", total_kWh: 1121 }
+    { Data: "2026-01-20", total_kWh: 1121 },
+    { Data: "2026-01-21", total_kWh: 713 },
+    { Data: "2026-01-22", total_kWh: 1124 },
+    { Data: "2026-01-23", total_kWh: 1087 },
+    { Data: "2026-01-24", total_kWh: 865 },
+    { Data: "2026-01-25", total_kWh: 699 },
+    { Data: "2026-01-26", total_kWh: 1311 },
+    { Data: "2026-01-27", total_kWh: 776 },
+    { Data: "2026-01-28", total_kWh: 852 },
+    { Data: "2026-01-29", total_kWh: 1115 },
+    { Data: "2026-01-30", total_kWh: 961 },
+    { Data: "2026-01-31", total_kWh: 1336 }
 ];
 
 function createMonthlyChart() {
