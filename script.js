@@ -72,6 +72,8 @@ function createMonthlyChart() {
     const mediaLinha = Array(diasNoMes).fill(media);
     const metaLinha = Array(diasNoMes).fill(3500);
 
+    const totalKwDia = Array(diasNoMes).fill(0);
+
     // Configuração do gráfico
     const ctx = document.getElementById("monthlyChart");
     const container = ctx.parentElement;
@@ -80,8 +82,11 @@ function createMonthlyChart() {
 
     if (window.chart) window.chart.destroy();
 
+    const totalDia = totalKwDia.map(v => v);
+
     window.chart = new Chart(ctx, {
         type: "line",
+        plugins: [ChartDataLabels],
         data: {
             labels: dias,
             datasets: [
@@ -120,6 +125,29 @@ function createMonthlyChart() {
                     borderDash: [4, 4],
                     tension: 0,
                     pointRadius: 0
+                },
+                {
+                    label: "TotalDia",
+                    data: totalDia,
+
+                    // NÃO desenha linha nem ponto
+                    borderWidth: 0,
+                    pointRadius: 0,
+                    borderColor: 'transparent',
+                    backgroundColor: 'transparent',
+
+                    datalabels: {
+                        display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
+                        align: 'top',
+                        anchor: 'end',
+                        offset: 6,
+                        color: '#00ff66',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: value => value
+                    }
                 }
             ]
         },
@@ -127,7 +155,10 @@ function createMonthlyChart() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { display: true }
+                legend: { display: false },
+                datalabels: {
+                    clamp: true
+                }
             },
             scales: {
                 x: {
