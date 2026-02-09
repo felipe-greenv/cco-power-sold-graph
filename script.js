@@ -30,7 +30,16 @@ const data = [
     { Data: "2026-01-28", total_kWh: 852 },
     { Data: "2026-01-29", total_kWh: 1115 },
     { Data: "2026-01-30", total_kWh: 961 },
-    { Data: "2026-01-31", total_kWh: 1336 }
+    { Data: "2026-01-31", total_kWh: 1336 },
+    { Data: "2026-02-01", total_kWh: 1071 },
+    { Data: "2026-02-02", total_kWh: 1402 },
+    { Data: "2026-02-03", total_kWh: 857 },
+    { Data: "2026-02-04", total_kWh: 990 },
+    { Data: "2026-02-05", total_kWh: 1234 },
+    { Data: "2026-02-06", total_kWh: 1734 },
+    { Data: "2026-02-07", total_kWh: 1212 },
+    { Data: "2026-02-08", total_kWh: 1502 }
+
 ];
 
 function createMonthlyChart() {
