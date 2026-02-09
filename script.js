@@ -188,7 +188,7 @@ function createMonthlyChart() {
                 },
                 y: {
                     beginAtZero: true,
-                    ticks: { color: "#fff", font: { size: 10 } },
+                    ticks: { color: "#fff", font: { size: 14 } },
                     grid: { color: "rgba(255,255,255,0.05)" }
                 }
             }
