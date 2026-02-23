@@ -48,7 +48,12 @@ const data = [
     { Data: "2026-02-15", total_kWh: 1449 },
     { Data: "2026-02-16", total_kWh: 1112 },
     { Data: "2026-02-17", total_kWh: 1669 },
-    { Data: "2026-02-18", total_kWh: 0 }
+    { Data: "2026-02-18", total_kWh: 1307 },
+    { Data: "2026-02-19", total_kWh: 1315 },
+    { Data: "2026-02-20", total_kWh: 1189 },
+    { Data: "2026-02-21", total_kWh: 1299 },
+    { Data: "2026-02-22", total_kWh: 1437 },
+    { Data: "2026-02-23", total_kWh: 0 }
 
 ];
 
