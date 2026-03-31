@@ -68,6 +68,7 @@ const data = [
     { Data: "2026-03-07", total_kWh: 1843 },
     { Data: "2026-03-08", total_kWh: 1498 },
     { Data: "2026-03-09", total_kWh: 1685 },
+    { Data: "2026-03-10", total_kWh: 1454 },
     { Data: "2026-03-11", total_kWh: 1653 },
     { Data: "2026-03-12", total_kWh: 1286 },
     { Data: "2026-03-13", total_kWh: 1686 },
@@ -143,7 +144,7 @@ function createMonthlyChart() {
 
     window.chart = new Chart(ctx, {
         type: "line",
-        plugins: [ChartDataLabels],
+        plugins: [ChartDataLabels], 
         data: {
             labels: dias,
             datasets: [
@@ -163,7 +164,21 @@ function createMonthlyChart() {
                     fill: true,
                     borderWidth: 1.8,
                     tension: 0.3,
-                    pointRadius: 0
+                    pointRadius: 0,
+                    datalabels: {
+                        display: true,
+                        align: 'top',
+                        anchor: 'end',
+                        offset: 14,
+                        color: '#00ff66',
+                        textStrokeColor: '#000',
+                        textStrokeWidth: 3,
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: value => value
+                    }
                 },
                 {
                     label: "Média diária",
@@ -172,7 +187,10 @@ function createMonthlyChart() {
                     borderWidth: 1.5,
                     borderDash: [6, 6],
                     tension: 0,
-                    pointRadius: 0
+                    pointRadius: 0,
+                    datalabels: {
+                       display: false // 👈 ESSA LINHA resolve o problema
+                    }
                 },
                 {
                     label: "Meta 3500 kWh",
@@ -181,7 +199,10 @@ function createMonthlyChart() {
                     borderWidth: 1.5,
                     borderDash: [4, 4],
                     tension: 0,
-                    pointRadius: 0
+                    pointRadius: 0,
+                     datalabels: {
+                       display: false // 👈 ESSA LINHA resolve o problema
+                    }
                 },
                 {
                     label: "TotalDia",
@@ -194,10 +215,10 @@ function createMonthlyChart() {
                     backgroundColor: 'transparent',
 
                     datalabels: {
-                        display: ctx => ctx.dataset.data[ctx.dataIndex] > 0,
+                        display: false,
                         align: 'top',
                         anchor: 'end',
-                        offset: 6,
+                        offset: 4,
                         color: '#00ff66',
                         font: {
                             weight: 'bold',
@@ -214,7 +235,8 @@ function createMonthlyChart() {
             plugins: {
                 legend: { display: false },
                 datalabels: {
-                    clamp: true
+                    display: true,
+                    offset: 4,
                 }
             },
             scales: {
@@ -232,7 +254,7 @@ function createMonthlyChart() {
                         },
                         font: { size: 18 }
                     },
-                    grid: { display: false }
+                    grid: { display: true }
                 },
                 y: {
                     beginAtZero: true,
