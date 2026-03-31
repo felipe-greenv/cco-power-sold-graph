@@ -63,7 +63,31 @@ const data = [
     { Data: "2026-03-02", total_kWh: 1586 },
     { Data: "2026-03-03", total_kWh: 1575 },
     { Data: "2026-03-04", total_kWh: 1426 },
-    { Data: "2026-03-05", total_kWh: 0 }
+    { Data: "2026-03-05", total_kWh: 1778 },
+    { Data: "2026-03-06", total_kWh: 1867 },
+    { Data: "2026-03-07", total_kWh: 1843 },
+    { Data: "2026-03-08", total_kWh: 1498 },
+    { Data: "2026-03-09", total_kWh: 1685 },
+    { Data: "2026-03-11", total_kWh: 1653 },
+    { Data: "2026-03-12", total_kWh: 1286 },
+    { Data: "2026-03-13", total_kWh: 1686 },
+    { Data: "2026-03-14", total_kWh: 1438 },
+    { Data: "2026-03-15", total_kWh: 1502 },
+    { Data: "2026-03-16", total_kWh: 1532 },
+    { Data: "2026-03-17", total_kWh: 1806 },
+    { Data: "2026-03-18", total_kWh: 1242 },
+    { Data: "2026-03-19", total_kWh: 1657 },
+    { Data: "2026-03-20", total_kWh: 1416 },
+    { Data: "2026-03-21", total_kWh: 1385 },
+    { Data: "2026-03-22", total_kWh: 1326 },
+    { Data: "2026-03-23", total_kWh: 1758 },
+    { Data: "2026-03-24", total_kWh: 1518 },
+    { Data: "2026-03-25", total_kWh: 1396 },
+    { Data: "2026-03-26", total_kWh: 1780 },
+    { Data: "2026-03-27", total_kWh: 2154 },
+    { Data: "2026-03-28", total_kWh: 1303 },
+    { Data: "2026-03-29", total_kWh: 1714 },
+    { Data: "2026-03-30", total_kWh: 1903 }
 ];
 
 function createMonthlyChart() {
