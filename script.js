@@ -121,7 +121,7 @@ function createMonthlyChart() {
                     top: 10,
                     right: 10,
                     bottom: 4,
-                    left: 4
+                    left: 16
                 }
             },
             plugins: {
@@ -144,7 +144,7 @@ function createMonthlyChart() {
                     max: yMax,
                     ticks: {
                         color: "#ffffff",
-                        font: { size: 14 },
+                        font: { size: 18 },
                         stepSize: Math.ceil(yMax / 6),
                         callback: (value) => `${value.toLocaleString("pt-BR")}`
                     },
