@@ -41,7 +41,7 @@ function createMonthlyChart() {
         ? totalFechado / mesesFechados.length
         : 0;
 
-    const formatMWh = (value) => `${Number(value).toFixed(3).replace(/\.0+$/, "")} MWh`;
+    const formatMWh = (value) => `${Math.round(Number(value))} MWh`;
 
     document.getElementById("chartTotals").innerHTML = `
         <span>Total fechado: <strong>${formatMWh(totalFechado)}</strong></span>
@@ -94,7 +94,7 @@ function createMonthlyChart() {
                         color: "#ffffff",
                         font: {
                             weight: "bold",
-                            size: 13
+                            size: 16
                         },
                         formatter: (value) => value > 0 ? formatMWh(value) : ""
                     }
