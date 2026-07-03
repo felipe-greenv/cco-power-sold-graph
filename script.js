@@ -40,6 +40,8 @@ function createMonthlyChart() {
     const mediaMensalYtd = mesesFechados.length
         ? totalFechado / mesesFechados.length
         : 0;
+    const maxValue = Math.max(...consumoMensal, 150);
+    const yMax = Math.ceil(maxValue * 1.12);
 
     const formatMWh = (value) => `${Math.round(Number(value))} MWh`;
 
@@ -114,6 +116,14 @@ function createMonthlyChart() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    top: 10,
+                    right: 10,
+                    bottom: 4,
+                    left: 4
+                }
+            },
             plugins: {
                 legend: { display: false },
                 datalabels: {
@@ -130,10 +140,12 @@ function createMonthlyChart() {
                     grid: { color: "rgba(255,255,255,0.08)" }
                 },
                 y: {
-                    beginAtZero: true,
+                    min: 0,
+                    max: yMax,
                     ticks: {
                         color: "#ffffff",
                         font: { size: 14 },
+                        stepSize: Math.ceil(yMax / 6),
                         callback: (value) => `${value.toLocaleString("pt-BR")}`
                     },
                     grid: { color: "rgba(255,255,255,0.08)" }
